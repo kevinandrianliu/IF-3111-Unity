@@ -18,15 +18,19 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.AddForce(movement * speed);
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+        rb.AddForce(movement * 10.0f);
 
-        // if(Input.GetKey(KeyCode.Space)) {
 
-        // 	movement = new Vector3(moveHorizontal, 0.0f, 50.0f);
-        // 	rb.AddForce(movement * speed);
-        // }
-    }
+        if(Input.GetKey(KeyCode.Space)) {
+
+            movement = new Vector3(0.0f, 0.0f, 50.0f);
+            rb.AddForce(movement * speed);
+            rb.angularVelocity = Random.insideUnitSphere * 15.0f;
+
+         }
+     }
+
 }
