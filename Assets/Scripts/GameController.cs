@@ -132,6 +132,12 @@ public class GameController : MonoBehaviour
 
         }
 
+
+        if (Input.GetKeyUp(KeyCode.Backspace))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         //quit
         if (Input.GetKeyUp(KeyCode.Escape))
         {
