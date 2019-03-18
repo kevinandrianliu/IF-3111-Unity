@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Mouse X");
-
         //float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
