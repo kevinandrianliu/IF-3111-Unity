@@ -18,20 +18,17 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Mouse X");
+
         //float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
         rb.AddForce(movement * 10.0f);
 
-
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) {
-
             movement = new Vector3(0.0f, 0.0f, 50.0f);
             rb.AddForce(movement * speed);
             rb.angularVelocity = Random.insideUnitSphere * 15.0f;
 
          }
-
      }
-
 }

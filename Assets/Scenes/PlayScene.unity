@@ -458,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1477771350}
   totalScoreText: {fileID: 934262755}
+  waitTime: 1
 --- !u!4 &93144169
 Transform:
   m_ObjectHideFlags: 0
