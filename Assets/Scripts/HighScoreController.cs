@@ -4,6 +4,8 @@ using System.IO;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
+using System.Data;
 
 public class HighScoreController : MonoBehaviour {
     private readonly int RANKING_TEXT_X_OFFSET = -130;
