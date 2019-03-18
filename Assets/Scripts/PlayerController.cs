@@ -17,14 +17,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveHorizontal = Input.GetAxis("Mouse X");
         //float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
         rb.AddForce(movement * 10.0f);
 
 
-        if(Input.GetKey(KeyCode.Space)) {
+        if(Input.GetMouseButtonDown(0)) {
 
             movement = new Vector3(0.0f, 0.0f, 50.0f);
             rb.AddForce(movement * speed);
