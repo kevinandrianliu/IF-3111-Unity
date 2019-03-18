@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour {
             nameText.transform.localPosition = new Vector3(NAME_TEXT_X_OFFSET,Y_OFFSET+y,0f);
             scoreText.transform.localPosition = new Vector3(SCORE_TEXT_X_OFFSET,Y_OFFSET+y,0f);
 
-            rankingText.text = i.ToString();
+            rankingText.text = (i+1).ToString();
             nameText.text = scoreCollection.scores[i].name;
             scoreText.text = scoreCollection.scores[i].score.ToString();
 
