@@ -12,6 +12,7 @@ public class PlayerData
 	public float musicVolume;
 	public bool fullScreen;
 	public int backgroundIndex;
+	//public int timessceneopened;
 	//public int background;
 	//public int[] Scores {get;set;}
 }

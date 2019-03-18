@@ -12,22 +12,29 @@ public class Settings : MonoBehaviour
 	public Dropdown colorBallDropdown;
 	public Dropdown resolutionDropdown;
 	public Dropdown backgroundDropdown;
-	public AudioMixer audioMixer;
+	public Slider musicSlider; 
 	public Resolution[] resolutions;
 	public PlayerData playerData;
 	public Button applyButton;
+	/*int times_scene_opened = PlayerPrefs.GetInt("timessceneopened");
+	void Awake(){
+		if(times_scene_opened == 0){
+			PlayerPrefs.SetFloat("musicVolume", 1.0f);
+		}
+	}*/
 	void OnEnable(){
-		//playerData = new PlayerData();
 		playerData = PlayerPersistence.LoadData();
 		fullscreenToggle.onValueChanged.AddListener(delegate {onFullScreenToggle();});
 		resolutionDropdown.onValueChanged.AddListener(delegate {setResolution();});
 		colorBallDropdown.onValueChanged.AddListener(delegate {setColorBall();});
 		backgroundDropdown.onValueChanged.AddListener(delegate {setBackground();});
 		applyButton.onClick.AddListener(delegate {onApplyButtonClick();});
+		musicSlider.onValueChanged.AddListener(delegate {setVolume();});
 		resolutions = Screen.resolutions;
 		foreach(Resolution resolution in resolutions){
 			resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
 		}
+		//PlayerPrefs.SetInt("timessceneopened", times_scene_opened++);
 		LoadSettings();
 	}
 	
@@ -52,9 +59,9 @@ public class Settings : MonoBehaviour
 		}
 	}
 	
-	public void setVolume (float volume){
-		audioMixer.SetFloat("volume",volume);
-		playerData.musicVolume = volume;
+	public void setVolume (){
+		playerData.musicVolume = musicSlider.value;
+		Debug.Log(playerData.musicVolume);
 	}
 	
 	public void LoadScene(string sceneName){
@@ -74,7 +81,8 @@ public class Settings : MonoBehaviour
 	public void LoadSettings(){
 		//playerData = JsonUtility.FromJson<PlayerData>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
 		
-		audioMixer.SetFloat("volume",playerData.musicVolume);
+		musicSlider.value = playerData.musicVolume;
+		Debug.Log(musicSlider.value);
 		if(playerData.colorBall == "red"){
 			colorBallDropdown.value = 0;
 		}
