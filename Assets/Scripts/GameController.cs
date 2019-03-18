@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
 
         }
 
-        if (GameObject.FindGameObjectWithTag("Ball").transform.position.z >= 101){
+        if (GameObject.FindGameObjectWithTag("Ball").transform.localPosition.z >= 101){
             timer += Time.deltaTime;
             timerSet = true;
         }
