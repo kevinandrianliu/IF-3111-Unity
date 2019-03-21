@@ -5622,11 +5622,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fullscreenToggle: {fileID: 248598462}
-  colorBallDropdown: {fileID: 0}
-  resolutionDropdown: {fileID: 0}
-  backgroundDropdown: {fileID: 0}
+  colorBallDropdown: {fileID: 962569453}
+  resolutionDropdown: {fileID: 1102727553}
+  backgroundDropdown: {fileID: 1842069083}
   audioMixer: {fileID: 24100000, guid: c682c174021e86a44890b377ab4cf622, type: 2}
   applyButton: {fileID: 1077604338}
+  applyButton2: {fileID: 2002124706}
   background1: {fileID: 2100000, guid: 165d905c466ed2f469b6b5cf5db45494, type: 2}
   background2: {fileID: 2100000, guid: c213290b1d26223499c9adf20b038040, type: 2}
   background3: {fileID: 2100000, guid: 85101fa2e079ce544851da8b2d65f158, type: 2}
+  ball: {fileID: 0}

@@ -26,9 +26,21 @@ public class GameController : MonoBehaviour
     public Text totalScoreText;
     public float waitTime;
 
+    public PlayerData playerData;
+    public GameObject ball;
+    public Image background;
+
+    public Material background1;
+	public Material background2;
+	public Material background3;
+
+
     // Start is called before the first frame update
     void Start()
     {
+
+    	setSettings();
+
         var pins = GameObject.FindGameObjectsWithTag("Pins");
         knockedPins = new Stack<GameObject>();
         pinPositions = new List<Vector3>();
@@ -136,11 +148,17 @@ public class GameController : MonoBehaviour
             ballReset = true;
             timer = 0;
         }
-        // //quit
-        // if (Input.GetKeyUp(KeyCode.Escape))
-        // {
-        //     Application.Quit();
-        // }
+        //quit
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        //restart
+        if (Input.GetKeyUp(KeyCode.Backspace))
+        {
+        	SceneManager.LoadScene("MainMenu");
+        }
 
     }
 
@@ -259,6 +277,32 @@ public class GameController : MonoBehaviour
             }
             element++;
         }
+    }
+
+    private void setSettings(){
+
+    	playerData = PlayerPersistence.LoadData();
+
+     	Color c = Color.black;
+    	Renderer ball_render = ball.GetComponent<Renderer>();
+    	
+		if(playerData.colorBall == "red"){ 
+			c.r += 0.1f;
+		} else if(playerData.colorBall == "green") {
+			c.g += 0.1f;
+		} else {
+			c.b += 0.1f;
+		}
+		ball_render.material.color = c;
+
+
+			if(playerData.backgroundIndex == 0) {
+					background.material = background1;
+				} else if(playerData.backgroundIndex == 1) {
+					background.material = background2;
+			} else {
+					background.material = background3;
+			}
     }
 }
 
