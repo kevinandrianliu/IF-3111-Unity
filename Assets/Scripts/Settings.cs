@@ -16,6 +16,7 @@ public class Settings : MonoBehaviour
 	public Resolution[] resolutions;
 	public PlayerData playerData;
 	public Button applyButton;
+	public Button backButton;
 	public Material background1;
 	public Material background2;
 	public Material background3;
@@ -27,6 +28,7 @@ public class Settings : MonoBehaviour
 		colorBallDropdown.onValueChanged.AddListener(delegate {setColorBall();});
 		backgroundDropdown.onValueChanged.AddListener(delegate {setBackground();});
 		applyButton.onClick.AddListener(delegate {onApplyButtonClick();});
+		backButton.onClick.AddListener(delegate {onBackButtonClick();});
 		musicSlider.onValueChanged.AddListener(delegate {setVolume();});
 		resolutions = Screen.resolutions;
 		foreach(Resolution resolution in resolutions){
@@ -37,7 +39,8 @@ public class Settings : MonoBehaviour
 	}
 	
 	public void onFullScreenToggle(){
-		playerData.fullScreen = Screen.fullScreen = fullscreenToggle.isOn;
+		playerData.fullScreen = fullscreenToggle.isOn;
+		Screen.fullScreen = fullscreenToggle.isOn;
 	}
 	
 	public void setResolution(){
@@ -47,17 +50,7 @@ public class Settings : MonoBehaviour
 	
 	public void setBackground(){
 		playerData.backgroundIndex = backgroundDropdown.value;
-		if(PlayerPrefs.HasKey("backgroundIndex")){
-			var background_index= PlayerPrefs.GetInt("backgroundIndex");
-			Renderer backgroundImage = GameObject.FindGameObjectWithTag("Image").GetComponent<Renderer>();
-			if(background_index == 1) {
-					GetComponent<Renderer>().material = background1;
-				} else if(background_index == 2) {
-					GetComponent<Renderer>().material = background2;
-			} else {
-					GetComponent<Renderer>().material = background3;
-			}
-		}
+		PlayerPrefs.SetInt("backgroundIndex",backgroundDropdown.value);
 	}
 	
 	public void setColorBall(){
@@ -67,18 +60,6 @@ public class Settings : MonoBehaviour
 			case 2 : playerData.colorBall = "blue"; break;
 		}
 		string color_ball = PlayerPrefs.GetString("colorBall");
-		Renderer ball_render = GameObject.FindGameObjectWithTag("Ball").GetComponent<Renderer>();
-
-		if(color_ball == "red"){ 
-			ball_render.material.shader = Shader.Find("_Color");
-       		ball_render.material.SetColor("_Color", Color.red);
-		} else if(color_ball == "green") {
-			ball_render.material.shader = Shader.Find("_Color");
-       		ball_render.material.SetColor("_Color", Color.green);
-		} else {
-			ball_render.material.shader = Shader.Find("_Color");
-       		ball_render.material.SetColor("_Color", Color.blue);
-		}
 	}
 	
 	public void setVolume (){
@@ -86,12 +67,12 @@ public class Settings : MonoBehaviour
 		Debug.Log(playerData.musicVolume);
 	}
 	
-	public void LoadScene(string sceneName){
-        SceneManager.LoadScene(sceneName);
-    }
-	
 	public void onApplyButtonClick(){
 		SaveSettings();
+	}
+
+	public void onBackButtonClick(){
+		SceneManager.LoadScene("MainMenu");
 	}
 	
 	public void SaveSettings(){
