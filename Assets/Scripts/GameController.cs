@@ -21,18 +21,27 @@ public class GameController : MonoBehaviour
     private float timer;
     private bool timerSet;
     private bool ballReset;
+    private int scoreOffset = 60;
 
-    public Text scoreText;
-    public Text totalScoreText;
     public float waitTime;
 
     public PlayerData playerData;
     public GameObject ball;
     public Image background;
 
+    public Text firstRoundText;
+    public Text secondRoundText;
+    public Text totalTurnScoreText;
+    public GameObject container;
+
     public Material background1;
 	public Material background2;
 	public Material background3;
+
+    public GameObject endPanel;
+    public InputField name;
+    public Text score;
+    public Button confirmButton;
 
 
     // Start is called before the first frame update
@@ -48,8 +57,6 @@ public class GameController : MonoBehaviour
         points = 0;
         total_points = 0;
         turnState = 0;
-        scoreText.text = "Score: " + points;
-        totalScoreText.text = "Total Score: " + total_points;
         foreach (var pin in pins)
         {
             pinPositions.Add(pin.transform.position);
@@ -66,6 +73,7 @@ public class GameController : MonoBehaviour
         }
 
         ballPosition = GameObject.FindGameObjectWithTag("Ball").transform.position;
+        confirmButton.onClick.AddListener(delegate {onConfirmButtonClick();});
     }
     
     void Update() {
@@ -75,95 +83,94 @@ public class GameController : MonoBehaviour
 
 
         if (turn > 10){
-            scoreCounter();
-
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #else
-            Application.Quit();
-            #endif
-        }
-
-        if (ballReset){
-            switch(turnState){
-                case 0: //Start new turn
-                {
-                    round = 0;
-                    turn++;
-                    startTurn();
-                    break;
-                }
-                case 1: //Same turn, start second round
-                {
-                    round++;
-                    startRound();
-                    break;
-                }
-                default:
-                    break;
-            }
-            ballReset = false;
-
-        }
-
-        if (GameObject.FindGameObjectWithTag("Ball").transform.localPosition.z >= 101){
-            timer += Time.deltaTime;
-            timerSet = true;
-        }
-
-        if (timerSet && (timer >= waitTime)){
-            // var pins = GameObject.FindGameObjectsWithTag("Pins");
-
-            // for (int i = 0; i < pins.Length; i++){
-            //     var pinPhysics = pins[i].GetComponent<Rigidbody>();
-
-            //     if(pinPhysics.rotation != Quaternion.identity){
-            //     	 knockedPins.Push(pins[i]);
-            //     	 pins[i].SetActive(false);
-            //     } else {
-            //     	pinPhysics.velocity = Vector3.zero;
-            //     	pinPhysics.position = pinPositions[i];
-            //     	pinPhysics.rotation = pinRotations[i];
-            //     	pinPhysics.velocity = Vector3.zero;
-            //     	pinPhysics.angularVelocity = Vector3.zero;
-            //     }
-            // }
-
-            points = knockedPins.Count;
-            scoreText.text = "Score: " + points;
-			totalScoreText.text = "Total Score: " + total_points;
-
-            scoring();
-
-            switch(turnState){
-                case 0: //Start new turn
-                    if (knockedPins.Count < 10){
-                        turnState = 1;
-                    } else {
-                        turnState = 0;
+            Vector3 position = endPanel.transform.localPosition;
+            position.x = 0;
+            endPanel.transform.localPosition = position;
+            score.text = realScores[9].totalPointsInteger.ToString();
+        } else {
+            if (ballReset){
+                switch(turnState){
+                    case 0: //Start new turn
+                    {
+                        if (turn > 0)
+                            scoreCounter();
+                        round = 0;
+                        turn++;
+                        startTurn();
+                        break;
                     }
-                    break;
-                case 1: //Same turn, start second round
-                    turnState = 0;
-                    break;
-                default:
-                    break;
+                    case 1: //Same turn, start second round
+                    {
+                        round++;
+                        startRound();
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                ballReset = false;
+
             }
-            timerSet = false;
-            ballReset = true;
-            timer = 0;
-        }
-        //quit
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            Application.Quit();
+
+            if (GameObject.FindGameObjectWithTag("Ball").transform.localPosition.z >= 101){
+                timer += Time.deltaTime;
+                timerSet = true;
+            }
+
+            if (timerSet && (timer >= waitTime)){
+                // var pins = GameObject.FindGameObjectsWithTag("Pins");
+
+                // for (int i = 0; i < pins.Length; i++){
+                //     var pinPhysics = pins[i].GetComponent<Rigidbody>();
+
+                //     if(pinPhysics.rotation != Quaternion.identity){
+                //     	 knockedPins.Push(pins[i]);
+                //     	 pins[i].SetActive(false);
+                //     } else {
+                //     	pinPhysics.velocity = Vector3.zero;
+                //     	pinPhysics.position = pinPositions[i];
+                //     	pinPhysics.rotation = pinRotations[i];
+                //     	pinPhysics.velocity = Vector3.zero;
+                //     	pinPhysics.angularVelocity = Vector3.zero;
+                //     }
+                // }
+
+                points = knockedPins.Count;
+
+                scoring();
+
+                switch(turnState){
+                    case 0: //Start new turn
+                        if (knockedPins.Count < 10){
+                            turnState = 1;
+                        } else {
+                            turnState = 0;
+                        }
+                        break;
+                    case 1: //Same turn, start second round
+                        turnState = 0;
+                        break;
+                    default:
+                        break;
+                }
+                timerSet = false;
+                ballReset = true;
+                timer = 0;
+            }
+            //quit
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+
+            //restart
+            if (Input.GetKeyUp(KeyCode.Backspace))
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
         }
 
-        //restart
-        if (Input.GetKeyUp(KeyCode.Backspace))
-        {
-        	SceneManager.LoadScene("MainMenu");
-        }
+        
 
     }
 
@@ -185,9 +192,6 @@ public class GameController : MonoBehaviour
    				var knocked_pin = knockedPins.Pop();
    				knocked_pin.SetActive(true);
 			}
-
-			scoreText.text = "Score: " + points;
-			totalScoreText.text = "Total Score: " + total_points;
 
 			pins = GameObject.FindGameObjectsWithTag("Pins");
 
@@ -244,6 +248,10 @@ public class GameController : MonoBehaviour
         int element = 0;
         int[] scoresArray = scores.ToArray();
 
+        foreach (Transform child in container.transform){
+            GameObject.Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < scoresArray.Length; i++){
             int totalPoints;
 
@@ -282,6 +290,46 @@ public class GameController : MonoBehaviour
             }
             element++;
         }
+
+        Color color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+
+        for (int i = 0; i < 10; i++){
+            Text firstRound = Instantiate(firstRoundText);
+            Text secondRound = Instantiate(secondRoundText);
+            Text totalScore = Instantiate(totalTurnScoreText);
+
+            Vector3 firstRoundPosition = firstRound.transform.localPosition;
+            Vector3 secondRoundPosition = secondRound.transform.localPosition;
+            Vector3 totalScorePosition = totalScore.transform.localPosition;
+            firstRoundPosition.x += (scoreOffset * i);
+            secondRoundPosition.x += (scoreOffset * i);
+            totalScorePosition.x += (scoreOffset * i);
+
+            firstRound.transform.SetParent(container.transform);
+            secondRound.transform.SetParent(container.transform);
+            totalScore.transform.SetParent(container.transform);
+
+            firstRound.transform.localPosition = firstRoundPosition;
+            secondRound.transform.localPosition = secondRoundPosition;
+            totalScore.transform.localPosition = totalScorePosition;
+
+            firstRound.text = realScores[i].firstRollPoints.ToString();
+            secondRound.text = realScores[i].secondRollPoints.ToString();
+            totalScore.text = realScores[i].totalPointsInteger.ToString();
+
+            firstRound.color = color;
+            secondRound.color = color;
+            totalScore.color = color;
+        }
+
+    }
+
+    private void updateScore(){
+        int childs = container.transform.childCount;
+
+        foreach (Transform child in container.transform){
+            GameObject.Destroy(child.gameObject);
+        }
     }
 
     private void setSettings(){
@@ -308,6 +356,11 @@ public class GameController : MonoBehaviour
 			} else {
 					background.material = background3;
 			}
+    }
+
+    private void onConfirmButtonClick(){
+        // Highscore stuffs
+        SceneManager.LoadScene("MainMenu");
     }
 }
 

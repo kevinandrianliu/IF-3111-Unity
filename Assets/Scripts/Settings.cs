@@ -32,7 +32,9 @@ public class Settings : MonoBehaviour
 		musicSlider.onValueChanged.AddListener(delegate {setVolume();});
 		resolutions = Screen.resolutions;
 		foreach(Resolution resolution in resolutions){
-			resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
+			if (resolution.width >= 800 && resolution.height >= 600){
+				resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
+			}
 		}
 		//PlayerPrefs.SetInt("timessceneopened", times_scene_opened++);
 		LoadSettings();
