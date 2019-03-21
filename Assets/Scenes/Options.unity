@@ -2208,7 +2208,7 @@ RectTransform:
   - {fileID: 2002124705}
   - {fileID: 1077604337}
   m_Father: {fileID: 1851523712}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7990017, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3729,6 +3729,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548369444}
   m_CullTransparentMesh: 0
+--- !u!1 &1569961641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569961642}
+  - component: {fileID: 1569961644}
+  - component: {fileID: 1569961643}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1569961642
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569961641}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1851523712}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 3.1487427}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1569961643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569961641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 8e0226eb151e68c4bba375bf63971f99, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &1569961644
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569961641}
+  m_CullTransparentMesh: 0
 --- !u!1 &1620666146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,6 +4747,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1569961642}
   - {fileID: 1085077255}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -4691,9 +4766,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851523708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 94d75defccabe064ca024c02b037846d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullscreenToggle: {fileID: 248598462}
+  colorBallDropdown: {fileID: 962569453}
+  resolutionDropdown: {fileID: 1102727553}
+  backgroundDropdown: {fileID: 1842069083}
+  musicSlider: {fileID: 1620666148}
+  applyButton: {fileID: 1077604338}
+  background1: {fileID: 2100000, guid: 165d905c466ed2f469b6b5cf5db45494, type: 2}
+  background2: {fileID: 2100000, guid: c213290b1d26223499c9adf20b038040, type: 2}
+  background3: {fileID: 2100000, guid: 85101fa2e079ce544851da8b2d65f158, type: 2}
 --- !u!1 &1900668482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5553,7 +5637,6 @@ GameObject:
   - component: {fileID: 2144143874}
   - component: {fileID: 2144143873}
   - component: {fileID: 2144143872}
-  - component: {fileID: 2144143875}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -5609,24 +5692,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2144143875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144143871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d75defccabe064ca024c02b037846d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fullscreenToggle: {fileID: 248598462}
-  colorBallDropdown: {fileID: 0}
-  resolutionDropdown: {fileID: 0}
-  backgroundDropdown: {fileID: 0}
-  audioMixer: {fileID: 24100000, guid: c682c174021e86a44890b377ab4cf622, type: 2}
-  applyButton: {fileID: 1077604338}
-  background1: {fileID: 2100000, guid: 165d905c466ed2f469b6b5cf5db45494, type: 2}
-  background2: {fileID: 2100000, guid: c213290b1d26223499c9adf20b038040, type: 2}
-  background3: {fileID: 2100000, guid: 85101fa2e079ce544851da8b2d65f158, type: 2}

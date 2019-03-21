@@ -8,6 +8,8 @@ TagManager:
   - Ball
   - Gutter
   - Image
+  - Quad
+  - music
   layers:
   - Default
   - TransparentFX
