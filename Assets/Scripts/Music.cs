@@ -28,7 +28,7 @@ public class Music : MonoBehaviour
 	}
  
     void Update(){
-        if (SceneManager.GetActiveScene().name == "Play" || SceneManager.GetActiveScene().name == "Quit"){
+        if (SceneManager.GetActiveScene().name == "PlayScene" || SceneManager.GetActiveScene().name == "Quit"){
             Destroy(this.gameObject);
         }
     }

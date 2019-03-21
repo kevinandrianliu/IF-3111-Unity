@@ -57,6 +57,11 @@ public class GameController : MonoBehaviour
     }
     
     void Update() {
+        if (Input.GetKeyUp(KeyCode.Backspace)){
+            SceneManager.LoadScene("MainMenu");
+        }
+
+
         if (turn > 10){
             scoreCounter();
 
