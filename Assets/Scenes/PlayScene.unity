@@ -466,6 +466,10 @@ MonoBehaviour:
   background1: {fileID: 2100000, guid: 165d905c466ed2f469b6b5cf5db45494, type: 2}
   background2: {fileID: 2100000, guid: c213290b1d26223499c9adf20b038040, type: 2}
   background3: {fileID: 2100000, guid: 85101fa2e079ce544851da8b2d65f158, type: 2}
+  endPanel: {fileID: 1889649179}
+  name: {fileID: 350712057}
+  score: {fileID: 1383240779}
+  confirmButton: {fileID: 1980750810}
 --- !u!4 &93144169
 Transform:
   m_ObjectHideFlags: 0
@@ -3845,7 +3849,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: press Backspace to Return
+  m_Text: press End to Return
 --- !u!222 &662708792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13709,7 +13713,7 @@ GameObject:
   - component: {fileID: 1889649181}
   m_Layer: 5
   m_Name: End Game Panel
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

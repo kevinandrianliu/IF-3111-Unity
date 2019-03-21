@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Mono.Data.Sqlite;
+using System.Data;
 
 public class GameController : MonoBehaviour
 {
@@ -157,14 +159,9 @@ public class GameController : MonoBehaviour
                 ballReset = true;
                 timer = 0;
             }
-            //quit
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
 
             //restart
-            if (Input.GetKeyUp(KeyCode.Backspace))
+            if (Input.GetKeyUp(KeyCode.End))
             {
                 SceneManager.LoadScene("MainMenu");
             }
@@ -359,8 +356,38 @@ public class GameController : MonoBehaviour
     }
 
     private void onConfirmButtonClick(){
-        // Highscore stuffs
+        List<ScoreList> scoreCollection = new List<ScoreList>();
+
+        string path = "URI=file:" + Application.persistentDataPath + "/highscore.s3db";
+
+        IDbConnection dbConn = new SqliteConnection(path);
+        IDbCommand dbCommand = dbConn.CreateCommand();
+
+        dbConn.Open();
+
+        dbCommand.CommandText = "SELECT * FROM Score";
+        IDataReader reader = dbCommand.ExecuteReader();
+        while (reader.Read()){
+            scoreCollection.Add(new ScoreList(reader.GetInt32(0),reader.GetString(1),reader.GetInt32(2)));
+        }
+        reader.Close();
+
+        scoreCollection.Add(new ScoreList(11,name.text.ToString(),realScores[9].totalPointsInteger));
+        scoreCollection.Sort((y,x) => x.score.CompareTo(y.score));
+        scoreCollection.RemoveAt(scoreCollection.Count - 1);
         SceneManager.LoadScene("MainMenu");
+
+        dbCommand.CommandText = "DELETE FROM Score";
+        dbCommand.ExecuteNonQuery();
+
+        ScoreList[] scoreCollectionArray = scoreCollection.ToArray();
+        for (int i = 0; i < 10; i++){
+            scoreCollectionArray[i].rank = i + 1;
+            dbCommand.CommandText = "INSERT INTO Score VALUES (" + scoreCollectionArray[i].rank + ",\"" + scoreCollectionArray[i].name + "\"," + scoreCollectionArray[i].score + ")";
+            dbCommand.ExecuteNonQuery();
+        }
+
+        dbConn.Close();
     }
 }
 
